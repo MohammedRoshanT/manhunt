@@ -4,47 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b1110">
-  <meta name="description" content="A mobile-first real-world Manhunt game interface prototype.">
+  <meta name="description" content="A single-device Manhunt field game demo. Sample players, illustrative map, and team-only voice previews.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Manhunt Demo">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./styles.css">
-  <title>Manhunt — Field Game</title>
+  <title>Manhunt — Field Game Demo</title>
 </head>
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <a class="brand" href="#top" aria-label="Manhunt home">
+      <a class="brand" href="#top" aria-label="Manhunt — top of current screen">
         <span class="brand-mark" aria-hidden="true"><i></i><b></b></span>
         <span class="brand-name">MANHUNT<span class="brand-dot">.</span><small>FIELD GAME</small></span>
       </a>
       <div class="topbar-right">
-        <span class="live-badge"><span class="live-dot"></span> LIVE MATCH</span>
-        <button class="avatar" type="button" aria-label="Player profile">R</button>
+        <span class="live-badge">DEMO · LOCAL ONLY</span>
       </div>
     </header>
 
     <main id="top">
+      <p class="demo-strip">One device. Sample players. No GPS, live audio, or safety alerts.</p>
+      <p id="storageNotice" class="inline-notice" role="status" hidden></p>
+      <section id="flowScreen" class="flow-screen" aria-label="Demo game flow">
+        <p class="loading-message" role="status">Preparing the field demo…</p>
+        <noscript><p>This interactive demo needs JavaScript. Enable it and reload; no account or permissions are needed.</p></noscript>
+      </section>
+      <div id="matchScreen" hidden>
       <section class="intro-row" aria-labelledby="page-title">
         <div>
-          <p class="eyebrow"><span class="eyebrow-line"></span> SATURDAY NIGHT · MATCH 08</p>
-          <h1 id="page-title">Eyes up.<br><span>Move smart.</span></h1>
-          <p class="intro-copy">The field is live. Stay in bounds, keep your team close, and watch for the next ping.</p>
+          <p class="eyebrow"><span class="eyebrow-line"></span><span id="matchPhase">DEMO ROUND</span></p>
+          <h1 id="page-title" tabindex="-1">Eyes up.<br><span>Move smart.</span></h1>
+          <p class="intro-copy" id="matchIntro">Your role is fixed for this round. Everything here is simulated.</p>
         </div>
         <div class="match-code-card">
-          <span class="micro-label">JOIN CODE</span>
-          <strong>F3K-92</strong>
+          <span class="micro-label">DEMO CODE</span>
+          <strong id="matchCode"></strong>
           <button class="copy-code" type="button" id="copyCode" aria-label="Copy game code">Copy <span aria-hidden="true">↗</span></button>
         </div>
       </section>
 
-      <section class="dashboard-grid" aria-label="Live match overview">
+      <div class="match-controls" aria-label="Local match controls">
+        <p id="phaseHelp"></p>
+        <button type="button" class="field-button" id="pauseButton">Pause</button>
+        <button type="button" class="safety-button" id="safetyButton"><span aria-hidden="true">⚑</span> Safety stop</button>
+      </div>
+      <section class="dashboard-grid" aria-label="Demo match overview">
         <article class="map-card">
           <div class="map-heading">
-            <div><span class="section-kicker">THE PLAYING FIELD</span><h2>Riverside Park</h2></div>
-            <span class="zone-chip"><span class="zone-dot"></span> IN THE ZONE</span>
+            <div><span class="section-kicker">ILLUSTRATIVE FIELD</span><h2 id="mapLocation">Riverside Park</h2></div>
+            <span class="zone-chip">SAMPLE BOUNDARY</span>
           </div>
-          <div class="map-visual" role="img" aria-label="Illustrated game zone with approximate player pings and the jail landmark">
+          <div class="map-visual" aria-label="Illustrative park, sample markers and jail. Not player locations.">
             <div class="map-grid"></div>
-            <svg class="park-map" viewBox="0 0 760 430" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <svg class="park-map" viewBox="0 0 760 430" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Sample park diagram with three decorative Runner markers and a central jail">
               <defs>
                 <pattern id="parkDots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#a9bdab" opacity=".17"/></pattern>
                 <linearGradient id="fieldGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#244139"/><stop offset="1" stop-color="#182b27"/></linearGradient>
@@ -76,79 +90,102 @@
               <text x="54" y="78" fill="#91a799" font-size="10" font-family="sans-serif" letter-spacing="1.5">NORTH GROVE</text>
               <text x="555" y="365" fill="#91a799" font-size="10" font-family="sans-serif" letter-spacing="1.5">RIVER WALK</text>
             </svg>
-            <div class="map-top-label"><span class="map-live-icon">⌖</span> APPROXIMATE PINGS <span class="map-separator">·</span> UPDATED 00:18 AGO</div>
-            <div class="map-legend"><span><i class="legend-runner"></i> RUNNERS</span><span><i class="legend-jail"></i> JAIL</span></div>
-            <button class="map-locate" type="button" id="recenter" aria-label="Recenter map">⌖</button>
+            <div class="map-top-label">SAMPLE MARKERS · NOT TRACKED</div>
+            <div class="map-legend"><span><i class="legend-runner"></i> SAMPLE RUNNERS</span><span><i class="legend-jail"></i> JAIL</span></div>
+            <button class="map-locate" type="button" id="recenter" aria-label="About this illustrative map">?</button>
             <div class="map-disclaimer">Illustrative map · not live GPS</div>
           </div>
-          <div class="map-footer"><span><span class="ping-dot"></span> Next runner ping in <b id="pingCountdown">00:42</b></span><span>Boundary <b>650 m</b></span></div>
+          <div class="map-footer"><span>No location access</span><span>Example boundary <b>650 m</b></span></div>
         </article>
 
         <aside class="match-sidebar">
           <article class="timer-card">
-            <div class="timer-top"><span class="section-kicker">TIME REMAINING</span><span class="timer-ring-icon">◷</span></div>
-            <div class="timer-value" id="timerValue">18<span>:42</span></div>
+            <div class="timer-top"><span class="section-kicker" id="timerLabel">TIME REMAINING</span><span class="timer-ring-icon" aria-hidden="true">◷</span></div>
+            <div class="timer-value" id="timerValue" role="timer" aria-live="off">00:00</div>
             <div class="timer-progress"><span></span></div>
-            <div class="timer-meta"><span>ROUND 2 OF 3</span><span>ENDS AT 9:30 PM</span></div>
+            <div class="timer-meta"><span id="timerPhase">NOT STARTED</span><span>LOCAL CLOCK</span></div>
           </article>
           <article class="objective-card">
             <div class="objective-icon">✳</div>
             <div><span class="section-kicker">YOUR OBJECTIVE</span><p id="objectiveText">Stay free. Reach jail to break out your team.</p></div>
           </article>
           <article class="score-card">
-            <div class="score-heading"><span class="section-kicker">FIELD STATUS</span><span class="score-live">UPDATING</span></div>
-            <div class="score-row"><span class="team-color runner-color"></span><span>Runners free</span><strong>6</strong><small>/ 8</small></div>
-            <div class="score-row"><span class="team-color hunter-color"></span><span>Hunters active</span><strong>4</strong><small>/ 4</small></div>
-            <div class="score-row"><span class="team-color jail-color"></span><span>In jail</span><strong>2</strong><small>players</small></div>
+            <div class="score-heading"><span class="section-kicker">FIELD STATUS</span><span class="score-live">DEMO</span></div>
+            <div class="score-row"><span class="team-color runner-color"></span><span>Runners free</span><strong id="freeCount">0</strong><small id="runnerTotal"></small></div>
+            <div class="score-row"><span class="team-color hunter-color"></span><span>Hunters</span><strong id="hunterCount">0</strong><small>sample</small></div>
+            <div class="score-row"><span class="team-color jail-color"></span><span>In jail</span><strong id="jailCount">0</strong><small>sample</small></div>
           </article>
         </aside>
+      </section>
+
+      <section class="simulation-section" aria-labelledby="simulationTitle">
+        <div class="section-heading"><div><p class="eyebrow">YOU DIRECT THE DEMO</p><h2 id="simulationTitle">Out in the field</h2></div><span class="section-kicker">NO REAL TAGS</span></div>
+        <p class="section-copy" id="actionHelp"></p>
+        <div id="runnerRoster" class="runner-roster"></div>
+        <div id="pendingTag" class="pending-tag" hidden></div>
+        <div class="action-row">
+          <button type="button" class="field-button" id="jailbreakButton">Simulate jailbreak</button>
+          <button type="button" class="text-button" id="expireButton">Simulate time running out</button>
+        </div>
       </section>
 
       <section class="voice-section" aria-labelledby="voice-title">
         <div class="voice-section-heading">
           <div><p class="eyebrow"><span class="eyebrow-line"></span> STAY IN SYNC</p><h2 id="voice-title">Team voice</h2></div>
-          <div class="private-note"><span aria-hidden="true">▣</span> Separate private rooms <span class="note-divider">·</span> No cross-team audio</div>
+          <div class="private-note"><span aria-hidden="true">▣</span> Team-only demo rooms <span class="note-divider">·</span> No audio transmitted</div>
         </div>
-        <div class="role-preview" aria-label="Prototype team role selector">
-          <span>PREVIEW YOUR ROLE</span>
-          <div class="role-switch" role="group" aria-label="Choose role to preview">
-            <button type="button" class="role-option" data-role="hunter" aria-pressed="false"><span class="role-marker hunter-marker"></span> Hunter</button>
-            <button type="button" class="role-option selected" data-role="runner" aria-pressed="true"><span class="role-marker runner-marker"></span> Runner</button>
-          </div>
+        <div class="role-preview">
+          <span>YOUR ASSIGNED ROLE · LOCKED FOR THIS ROUND</span>
+          <strong id="currentRole">Runner</strong>
         </div>
         <div class="voice-grid">
           <article class="voice-card hunter-room" data-team="hunter">
             <div class="voice-card-top"><div class="voice-team-icon hunter-icon">⌁</div><span class="room-status locked-status" data-status>LOCKED</span></div>
-            <div class="voice-room-title"><div><span class="room-label">HUNTER CHANNEL</span><h3>Hunter Radio</h3></div><span class="member-count"><span class="mini-avatar hunter-av">J</span><span class="mini-avatar hunter-av two">K</span><span class="mini-avatar hunter-av three">+2</span></span></div>
+            <div class="voice-room-title"><div><span class="room-label">HUNTER CHANNEL</span><h3>Hunter Radio</h3></div><span class="member-count" aria-hidden="true"><span class="mini-avatar hunter-av">H</span></span></div>
             <p class="voice-description">Coordinate the sweep and share sightings with your squad.</p>
-            <button class="voice-action" type="button" data-action="hunter" disabled><span class="action-icon">◖</span><span class="action-label">Only Hunters can join</span><span class="action-arrow">↗</span></button>
-            <div class="voice-card-foot"><span>4 PLAYERS</span><span class="foot-lock">⌑ TEAM-ONLY</span></div>
+            <button class="voice-action" type="button" data-voice="hunter" disabled><span class="action-icon">◖</span><span class="action-label">Other team · locked</span><span class="action-arrow">↗</span></button>
+            <div class="call-controls" hidden><button type="button" data-control="MIC">Mic preview: off</button><button type="button" data-control="AUDIO">Audio preview: off</button></div>
+            <div class="voice-card-foot"><span data-members>2 SAMPLE PLAYERS</span><span class="foot-lock">⌑ TEAM-ONLY</span></div>
           </article>
           <article class="voice-card runner-room is-available" data-team="runner">
-            <div class="voice-card-top"><div class="voice-team-icon runner-icon">⌁</div><span class="room-status ready-status" data-status><i></i> READY</span></div>
-            <div class="voice-room-title"><div><span class="room-label">RUNNER CHANNEL</span><h3>Runner Relay</h3></div><span class="member-count"><span class="mini-avatar runner-av">M</span><span class="mini-avatar runner-av two">A</span><span class="mini-avatar runner-av three">+4</span></span></div>
+            <div class="voice-card-top"><div class="voice-team-icon runner-icon">⌁</div><span class="room-status ready-status" data-status>DEMO ONLY</span></div>
+            <div class="voice-room-title"><div><span class="room-label">RUNNER CHANNEL</span><h3>Runner Relay</h3></div><span class="member-count" aria-hidden="true"><span class="mini-avatar runner-av">R</span></span></div>
             <p class="voice-description">Keep your crew connected without revealing your position.</p>
-            <button class="voice-action primary-action" type="button" data-action="runner"><span class="action-icon">◖</span><span class="action-label">Join Runner Call</span><span class="action-arrow">↗</span></button>
-            <div class="voice-card-foot"><span>6 PLAYERS ONLINE</span><span class="foot-lock">⌑ TEAM-ONLY</span></div>
+            <button class="voice-action primary-action" type="button" data-voice="runner"><span class="action-icon">◖</span><span class="action-label">Open room demo</span><span class="action-arrow">↗</span></button>
+            <div class="call-controls" hidden><button type="button" data-control="MIC">Mic preview: off</button><button type="button" data-control="AUDIO">Audio preview: off</button></div>
+            <div class="voice-card-foot"><span data-members>3 SAMPLE PLAYERS</span><span class="foot-lock">⌑ TEAM-ONLY</span></div>
           </article>
         </div>
-        <p class="voice-notice"><span aria-hidden="true">ⓘ</span> Voice calling is shown as a UI prototype only; no microphone or live audio is enabled yet. Role switching here is for preview and does not change an actual game assignment.</p>
+        <p class="voice-notice"><span aria-hidden="true">ⓘ</span> UI demo only. No microphone permission, call connection, or audio transmission. Only your assigned team’s controls are available. Assignments change only in the host lobby.</p>
       </section>
 
       <section class="bottom-row">
-        <div class="event-card"><div class="event-indicator"></div><div><span class="section-kicker">LAST FIELD UPDATE</span><p><b>Runner ping received</b> <span>· 18 seconds ago</span></p></div><span class="event-time">8:47 PM</span></div>
-        <button type="button" class="safety-button" id="safetyButton"><span>⚑</span> Safety stop</button>
+        <div class="event-card"><div class="event-indicator"></div><div><span class="section-kicker">LAST DEMO ACTION</span><p id="fieldUpdate"></p></div></div>
       </section>
-      <footer class="footer"><span>MANHUNT FIELD GAME <i>·</i> PLAY FAIR. STAY SAFE.</span><span>PROTOTYPE 0.1</span></footer>
+      </div>
+      <footer class="footer"><span>MANHUNT FIELD GAME <i>·</i> PLAY FAIR. STAY SAFE.</span><span>DEMO / 02</span></footer>
     </main>
   </div>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   <dialog class="safety-dialog" id="safetyDialog" aria-labelledby="safetyTitle">
     <button class="dialog-close" type="button" aria-label="Close" id="closeSafety">×</button>
-    <div class="safety-symbol">!</div><p class="section-kicker">SAFETY FIRST</p><h2 id="safetyTitle">Stop the game?</h2>
-    <p>In a live build, this would alert every player to pause and return to the agreed safe point. This demo won’t send an alert.</p>
-    <button type="button" class="voice-action primary-action safety-confirm" id="ackSafety">Got it</button>
+    <div class="safety-symbol">!</div><p class="section-kicker">SAFETY FIRST · DEMO</p><h2 id="safetyTitle">Paused on this device.</h2>
+    <p>No alert was sent to other players. This app cannot contact anyone or provide emergency assistance. In a real game, stop and speak to your group directly.</p>
+    <p>Closing this message keeps the demo paused. Use Resume when you are ready.</p>
+    <button type="button" class="voice-action primary-action safety-confirm" id="ackSafety">Keep paused</button>
   </dialog>
+  <dialog class="safety-dialog" id="confirmDialog" aria-labelledby="confirmTitle" aria-describedby="confirmBody">
+    <p class="section-kicker">DEMO ACTION</p><h2 id="confirmTitle"></h2>
+    <p id="confirmBody"></p>
+    <div class="dialog-actions"><button class="field-button" type="button" id="cancelAction" autofocus>Cancel</button><button class="field-button primary-action" type="button" id="confirmAction">Confirm</button></div>
+  </dialog>
+  <dialog class="safety-dialog" id="codeDialog" aria-labelledby="codeTitle">
+    <h2 id="codeTitle">Copy the demo code</h2>
+    <p>Clipboard access is unavailable. Select this code and use your device’s Copy command. It works only in this tab’s session.</p>
+    <label for="fallbackCode">Game code</label><input id="fallbackCode" readonly>
+    <button class="field-button" type="button" id="closeCode">Done</button>
+  </dialog>
+  <script src="./game.js" defer></script>
   <script src="./app.js" defer></script>
 </body>
 </html>
