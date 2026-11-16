@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1110">
+  <meta name="description" content="A mobile-first real-world Manhunt game interface prototype.">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Manhunt — Field Game</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Manhunt home">
+        <span class="brand-mark" aria-hidden="true"><i></i><b></b></span>
+        <span class="brand-name">MANHUNT<span class="brand-dot">.</span><small>FIELD GAME</small></span>
+      </a>
+      <div class="topbar-right">
+        <span class="live-badge"><span class="live-dot"></span> LIVE MATCH</span>
+        <button class="avatar" type="button" aria-label="Player profile">R</button>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="intro-row" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line"></span> SATURDAY NIGHT · MATCH 08</p>
+          <h1 id="page-title">Eyes up.<br><span>Move smart.</span></h1>
+          <p class="intro-copy">The field is live. Stay in bounds, keep your team close, and watch for the next ping.</p>
+        </div>
+        <div class="match-code-card">
+          <span class="micro-label">JOIN CODE</span>
+          <strong>F3K-92</strong>
+          <button class="copy-code" type="button" id="copyCode" aria-label="Copy game code">Copy <span aria-hidden="true">↗</span></button>
+        </div>
+      </section>
+
+      <section class="dashboard-grid" aria-label="Live match overview">
+        <article class="map-card">
+          <div class="map-heading">
+            <div><span class="section-kicker">THE PLAYING FIELD</span><h2>Riverside Park</h2></div>
+            <span class="zone-chip"><span class="zone-dot"></span> IN THE ZONE</span>
+          </div>
+          <div class="map-visual" role="img" aria-label="Illustrated game zone with approximate player pings and the jail landmark">
+            <div class="map-grid"></div>
+            <svg class="park-map" viewBox="0 0 760 430" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <pattern id="parkDots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1" fill="#a9bdab" opacity=".17"/></pattern>
+                <linearGradient id="fieldGlow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#244139"/><stop offset="1" stop-color="#182b27"/></linearGradient>
+                <filter id="blur"><feGaussianBlur stdDeviation="5"/></filter>
+              </defs>
+              <rect width="760" height="430" fill="#15221f"/>
+              <path d="M0 55 194 27l74 45 164-35 117 36 211-44v91L610 141l-88 45-148-21-86 61-133-26L0 237z" fill="#1b302a"/>
+              <path d="M0 284 126 252l91 28 120-35 105 40 148-16 86 39 84-27v149H0z" fill="url(#fieldGlow)"/>
+              <path d="M-25 158c106 25 165 18 246-4s124-45 208-23 145 84 227 75 106-49 155-46" fill="none" stroke="#60756b" stroke-width="25" opacity=".24"/>
+              <path d="M-25 158c106 25 165 18 246-4s124-45 208-23 145 84 227 75 106-49 155-46" fill="none" stroke="#9eaa9d" stroke-width="2" stroke-dasharray="8 8" opacity=".35"/>
+              <path d="M135 430c48-91 76-137 161-186s149-79 225-100 159-35 258-44" fill="none" stroke="#819187" stroke-width="18" opacity=".2"/>
+              <path d="M135 430c48-91 76-137 161-186s149-79 225-100 159-35 258-44" fill="none" stroke="#aeb9ad" stroke-width="1.5" stroke-dasharray="7 7" opacity=".35"/>
+              <path d="M0 0h760v430H0z" fill="url(#parkDots)"/>
+              <g fill="#355044" opacity=".92">
+                <circle cx="98" cy="102" r="27"/><circle cx="147" cy="113" r="19"/><circle cx="218" cy="77" r="24"/><circle cx="330" cy="91" r="18"/>
+                <circle cx="563" cy="91" r="28"/><circle cx="626" cy="117" r="18"/><circle cx="679" cy="220" r="27"/><circle cx="599" cy="302" r="22"/>
+                <circle cx="483" cy="335" r="28"/><circle cx="346" cy="354" r="19"/><circle cx="252" cy="307" r="25"/><circle cx="80" cy="331" r="29"/>
+              </g>
+              <g fill="#99a883" opacity=".22"><circle cx="98" cy="102" r="17"/><circle cx="563" cy="91" r="18"/><circle cx="679" cy="220" r="17"/><circle cx="483" cy="335" r="17"/><circle cx="80" cy="331" r="17"/></g>
+              <circle cx="398" cy="218" r="64" fill="#ed6c43" opacity=".09" filter="url(#blur)"/>
+              <circle cx="398" cy="218" r="46" fill="none" stroke="#ed805b" stroke-width="1.5" stroke-dasharray="4 6" opacity=".8"/>
+              <circle cx="398" cy="218" r="26" fill="#ed6c43" opacity=".13"/>
+              <g transform="translate(398 218)"><path d="M0-13 11 0 0 13-11 0z" fill="#ff8a62" stroke="#ffe4d9" stroke-width="2"/><circle r="2.4" fill="#fff4ed"/></g>
+              <g transform="translate(253 144)"><circle r="25" fill="#8ab997" opacity=".13"/><circle r="14" fill="#244432" stroke="#9cd8aa" stroke-width="2"/><path d="M-4 1h8M0-5v12" stroke="#c7efca" stroke-width="2" stroke-linecap="round"/></g>
+              <g transform="translate(542 259)"><circle r="24" fill="#8ab997" opacity=".12"/><circle r="13" fill="#244432" stroke="#9cd8aa" stroke-width="2"/><path d="M-4 1h8M0-5v12" stroke="#c7efca" stroke-width="2" stroke-linecap="round"/></g>
+              <g transform="translate(161 265)"><circle r="24" fill="#8ab997" opacity=".12"/><circle r="13" fill="#244432" stroke="#9cd8aa" stroke-width="2"/><path d="M-4 1h8M0-5v12" stroke="#c7efca" stroke-width="2" stroke-linecap="round"/></g>
+              <path d="M42 42h27M42 42v27M718 42h-27M718 42v27M42 388h27M42 388v-27M718 388h-27M718 388v-27" fill="none" stroke="#d4e3d6" stroke-width="2" opacity=".42"/>
+              <text x="420" y="226" fill="#ffd5c7" font-size="11" font-family="sans-serif" letter-spacing="1.5">JAIL</text>
+              <text x="54" y="78" fill="#91a799" font-size="10" font-family="sans-serif" letter-spacing="1.5">NORTH GROVE</text>
+              <text x="555" y="365" fill="#91a799" font-size="10" font-family="sans-serif" letter-spacing="1.5">RIVER WALK</text>
+            </svg>
+            <div class="map-top-label"><span class="map-live-icon">⌖</span> APPROXIMATE PINGS <span class="map-separator">·</span> UPDATED 00:18 AGO</div>
+            <div class="map-legend"><span><i class="legend-runner"></i> RUNNERS</span><span><i class="legend-jail"></i> JAIL</span></div>
+            <button class="map-locate" type="button" id="recenter" aria-label="Recenter map">⌖</button>
+            <div class="map-disclaimer">Illustrative map · not live GPS</div>
+          </div>
+          <div class="map-footer"><span><span class="ping-dot"></span> Next runner ping in <b id="pingCountdown">00:42</b></span><span>Boundary <b>650 m</b></span></div>
+        </article>
+
+        <aside class="match-sidebar">
+          <article class="timer-card">
+            <div class="timer-top"><span class="section-kicker">TIME REMAINING</span><span class="timer-ring-icon">◷</span></div>
+            <div class="timer-value" id="timerValue">18<span>:42</span></div>
+            <div class="timer-progress"><span></span></div>
+            <div class="timer-meta"><span>ROUND 2 OF 3</span><span>ENDS AT 9:30 PM</span></div>
+          </article>
+          <article class="objective-card">
+            <div class="objective-icon">✳</div>
+            <div><span class="section-kicker">YOUR OBJECTIVE</span><p id="objectiveText">Stay free. Reach jail to break out your team.</p></div>
+          </article>
+          <article class="score-card">
+            <div class="score-heading"><span class="section-kicker">FIELD STATUS</span><span class="score-live">UPDATING</span></div>
+            <div class="score-row"><span class="team-color runner-color"></span><span>Runners free</span><strong>6</strong><small>/ 8</small></div>
+            <div class="score-row"><span class="team-color hunter-color"></span><span>Hunters active</span><strong>4</strong><small>/ 4</small></div>
+            <div class="score-row"><span class="team-color jail-color"></span><span>In jail</span><strong>2</strong><small>players</small></div>
+          </article>
+        </aside>
+      </section>
+
+      <section class="voice-section" aria-labelledby="voice-title">
+        <div class="voice-section-heading">
+          <div><p class="eyebrow"><span class="eyebrow-line"></span> STAY IN SYNC</p><h2 id="voice-title">Team voice</h2></div>
+          <div class="private-note"><span aria-hidden="true">▣</span> Separate private rooms <span class="note-divider">·</span> No cross-team audio</div>
+        </div>
+        <div class="role-preview" aria-label="Prototype team role selector">
+          <span>PREVIEW YOUR ROLE</span>
+          <div class="role-switch" role="group" aria-label="Choose role to preview">
+            <button type="button" class="role-option" data-role="hunter" aria-pressed="false"><span class="role-marker hunter-marker"></span> Hunter</button>
+            <button type="button" class="role-option selected" data-role="runner" aria-pressed="true"><span class="role-marker runner-marker"></span> Runner</button>
+          </div>
+        </div>
+        <div class="voice-grid">
+          <article class="voice-card hunter-room" data-team="hunter">
+            <div class="voice-card-top"><div class="voice-team-icon hunter-icon">⌁</div><span class="room-status locked-status" data-status>LOCKED</span></div>
+            <div class="voice-room-title"><div><span class="room-label">HUNTER CHANNEL</span><h3>Hunter Radio</h3></div><span class="member-count"><span class="mini-avatar hunter-av">J</span><span class="mini-avatar hunter-av two">K</span><span class="mini-avatar hunter-av three">+2</span></span></div>
+            <p class="voice-description">Coordinate the sweep and share sightings with your squad.</p>
+            <button class="voice-action" type="button" data-action="hunter" disabled><span class="action-icon">◖</span><span class="action-label">Only Hunters can join</span><span class="action-arrow">↗</span></button>
+            <div class="voice-card-foot"><span>4 PLAYERS</span><span class="foot-lock">⌑ TEAM-ONLY</span></div>
+          </article>
+          <article class="voice-card runner-room is-available" data-team="runner">
+            <div class="voice-card-top"><div class="voice-team-icon runner-icon">⌁</div><span class="room-status ready-status" data-status><i></i> READY</span></div>
+            <div class="voice-room-title"><div><span class="room-label">RUNNER CHANNEL</span><h3>Runner Relay</h3></div><span class="member-count"><span class="mini-avatar runner-av">M</span><span class="mini-avatar runner-av two">A</span><span class="mini-avatar runner-av three">+4</span></span></div>
+            <p class="voice-description">Keep your crew connected without revealing your position.</p>
+            <button class="voice-action primary-action" type="button" data-action="runner"><span class="action-icon">◖</span><span class="action-label">Join Runner Call</span><span class="action-arrow">↗</span></button>
+            <div class="voice-card-foot"><span>6 PLAYERS ONLINE</span><span class="foot-lock">⌑ TEAM-ONLY</span></div>
+          </article>
+        </div>
+        <p class="voice-notice"><span aria-hidden="true">ⓘ</span> Voice calling is shown as a UI prototype only; no microphone or live audio is enabled yet. Role switching here is for preview and does not change an actual game assignment.</p>
+      </section>
+
+      <section class="bottom-row">
+        <div class="event-card"><div class="event-indicator"></div><div><span class="section-kicker">LAST FIELD UPDATE</span><p><b>Runner ping received</b> <span>· 18 seconds ago</span></p></div><span class="event-time">8:47 PM</span></div>
+        <button type="button" class="safety-button" id="safetyButton"><span>⚑</span> Safety stop</button>
+      </section>
+      <footer class="footer"><span>MANHUNT FIELD GAME <i>·</i> PLAY FAIR. STAY SAFE.</span><span>PROTOTYPE 0.1</span></footer>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog class="safety-dialog" id="safetyDialog" aria-labelledby="safetyTitle">
+    <button class="dialog-close" type="button" aria-label="Close" id="closeSafety">×</button>
+    <div class="safety-symbol">!</div><p class="section-kicker">SAFETY FIRST</p><h2 id="safetyTitle">Stop the game?</h2>
+    <p>In a live build, this would alert every player to pause and return to the agreed safe point. This demo won’t send an alert.</p>
+    <button type="button" class="voice-action primary-action safety-confirm" id="ackSafety">Got it</button>
+  </dialog>
+  <script src="./app.js" defer></script>
+</body>
+</html>
