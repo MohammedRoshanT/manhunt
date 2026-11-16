@@ -133,3 +133,19 @@ test('voice preview is restricted to the assigned team and never changes that ro
   assert.equal(state.voiceOpen, true);
   assert.equal(state.game.players[0].team, 'runner');
 });
+
+test('pending tags survive pause but cannot be resolved until resumed', () => {
+  let state = act(start(0), 'TAG', { id: 'you' });
+  state = act(state, 'PAUSE');
+  assert.equal(state.pendingTag, 'you');
+  assert.deepEqual(act(state, 'JAIL'), state);
+  state = act(act(state, 'RESUME'), 'JAIL');
+  assert.equal(state.game.players[0].jailed, true);
+});
+
+test('transitions leave earlier state snapshots intact', () => {
+  const state = start(0);
+  const before = structuredClone(state);
+  act(act(state, 'TAG', { id: 'you' }), 'JAIL');
+  assert.deepEqual(state, before);
+});

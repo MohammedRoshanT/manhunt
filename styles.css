@@ -70,7 +70,7 @@ button:focus-visible,a:focus-visible{outline-width:3px}
 .player-initial.hunter{color:#ffc0a3;background:#3e2b22;border-color:#906149}
 .player-name{flex:1;min-width:0;font-size:15px}
 .player-name small{display:block;font-size:12px;color:#b0beb4;margin-top:2px}
-.lobby-roster select{min-width:130px;font-size:15px}
+.lobby-roster select{min-width:130px;font-size:16px}
 .lobby-launch{display:flex;align-items:center;justify-content:space-between;gap:24px;border-top:2px solid var(--orange);padding:18px 0}
 .lobby-launch p{font-size:14px;color:#becbc1;margin:0;max-width:600px}
 .lobby-launch .field-button{min-width:200px}
@@ -87,7 +87,7 @@ button:focus-visible,a:focus-visible{outline-width:3px}
 .match-code-card{background:#17241c}
 .match-code-card strong{font-size:19px}
 .copy-code{font-size:13px;min-height:44px;min-width:44px}
-.match-controls{display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:4;background:#0b1110;padding:10px 0;border-bottom:1px solid #425447;margin-bottom:16px}
+.match-controls{display:flex;align-items:center;gap:10px;position:sticky;top:env(safe-area-inset-top);z-index:4;background:#0b1110;padding:10px 0;border-bottom:1px solid #425447;margin-bottom:16px}
 .match-controls p{flex:1;font-size:13px;color:#c7d4ca;margin:0}
 .safety-button{min-height:48px;font-size:14px;font-weight:650;background:#302019;color:#ffba9e;border-color:#996047}
 .map-heading h2{font-size:17px;overflow-wrap:anywhere}
@@ -144,7 +144,7 @@ button:focus-visible,a:focus-visible{outline-width:3px}
 .dialog-close{width:44px;height:44px}
 .dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
 #fallbackCode{margin:10px 0 18px;font-size:26px;letter-spacing:4px}
-.app-shell{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+.app-shell{padding-top:env(safe-area-inset-top);padding-bottom:calc(28px + env(safe-area-inset-bottom))}
 @media(max-width:900px){
   .start-layout{gap:30px}
   .form-layout{gap:30px}
